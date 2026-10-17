@@ -1,5 +1,11 @@
 import { Link } from "react-router-dom";
 
+const POLICY_LINKS = [
+  { label: "Privacy Policy", tip: "We only use your data to match you with jobs and never sell it." },
+  { label: "Terms of Service", tip: "Using JobPortal means you agree to post and apply honestly." },
+  { label: "Cookie Policy", tip: "We use cookies to keep you signed in and remember your theme." },
+];
+
 const Footer = () => {
   return (
     <footer className="relative bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden">
@@ -141,18 +147,24 @@ const Footer = () => {
 
           <div className="flex flex-col md:flex-row justify-between items-center">
             <div className="flex flex-wrap justify-center md:justify-start gap-6 text-sm text-gray-400 mb-6 md:mb-0">
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Privacy Policy</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Terms of Service</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
-              <a className="group relative hover:text-white transition-colors duration-300">
-                <span className="relative z-10">Cookie Policy</span>
-                <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 transition-opacity duration-300 -inset-2"></div>
-              </a>
+              {POLICY_LINKS.map(({ label, tip }) => (
+                <span
+                  key={label}
+                  tabIndex={0}
+                  aria-describedby={`tip-${label.replace(/ /g, "-")}`}
+                  className="group relative cursor-help hover:text-white focus-visible:text-white outline-none transition-colors duration-300"
+                >
+                  <span className="relative z-10">{label}</span>
+                  <div className="absolute inset-0 bg-gradient-to-r from-primary-600/20 to-purple-600/20 rounded-lg opacity-0 group-hover:opacity-100 group-focus-visible:opacity-100 transition-opacity duration-300 -inset-2"></div>
+                  <span
+                    id={`tip-${label.replace(/ /g, "-")}`}
+                    role="tooltip"
+                    className="pointer-events-none absolute bottom-full left-1/2 -translate-x-1/2 mb-3 w-64 px-3 py-2 rounded-xl bg-gray-800 border border-gray-700 shadow-lg shadow-primary-500/10 text-xs text-gray-200 text-center opacity-0 translate-y-1 group-hover:opacity-100 group-hover:translate-y-0 group-focus-visible:opacity-100 group-focus-visible:translate-y-0 transition-all duration-300 z-20"
+                  >
+                    {tip}
+                  </span>
+                </span>
+              ))}
               <Link
                 to="/contact"
                 className="group relative hover:text-white transition-colors duration-300"
